@@ -30,7 +30,8 @@ class Blog {
      * Useful for Pages that are asociated with Feeds.
      * 
      * @param {String} pageId The identifier of the desired page to retrieve
-     * @param {String} label The lable that identifies the posts of that feed
+     * @param {String} label The lable that identifies the posts of that feed.
+     * @returns {Object} The object that contains the page and the feed of posts to show.
      */
     async requestPage(pageId, label){
         let [page, feed] = await Promise.all([
