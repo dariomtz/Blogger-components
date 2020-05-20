@@ -26,30 +26,42 @@ class Blog {
     }
 
     /**
-     * Request a page and all the posts that have the label specified.
-     * Useful for Pages that are asociated with Feeds.
+     * Request a page.
      * 
      * @param {String} pageId The identifier of the desired page to retrieve
-     * @param {String} label The lable that identifies the posts of that feed.
-     * @returns {Object} The object that contains the page and the feed of posts to show.
+     * @returns {Object} The object that contains the page.
      */
-    async requestPage(pageId, label){
-        let [page, feed] = await Promise.all([
-            this._request(this._url + 'pages/' + pageId + '?key=' + this.key + '&fields=title,content,updated,kind'),
-            this._request(this._url + 'posts' + '?key=' + this.key + '&label=' + label + '&fields=items(title,content,id,labels)'),
-        ]);
-
-        return {
-            page: page,
-            feed: feed,
-        };
+    async requestPage(pageId){
+        return await this._request(this._url + 'pages/' + pageId + '?key=' + this.key + '&fields=title,content,updated,kind');
     }
+
+    /**
+     * Request a feed of posts related to the label.
+     * 
+     * @param {String} label The label of the feed of post that is going to be requested
+     * @returns {Object} The object containing the list of posts.
+     */
+    async requestFeed(label){
+        return await this._request(this._url + 'posts' + '?key=' + this.key + '&labels=' + label + '&fields=nextPageToken,items(title,content,id,labels)');
+    }
+
+    /**
+     * Requests the next bunch of post of the feed.
+     * 
+     * @param {String} nextPageToken Token that was given by the previous feed requested
+     * @returns {Object} The object of lists of posts that is next to the previos one.
+     */
+    async requestNextFeed(nextPageToken){
+        return await this._request(this._url + 'posts' + '?key=' + this.key + '&pageToken=' + nextPageToken + '&fields=nextPageToken,items(title,content,id,labels)');
+    }
+    
     /**
      * This is a generic method to make any request.
      * Intended to be private because an instance of this object should only call requestPage and requestPost, 
      * instead of using this method directly
      * 
      * @param {String} url url of the request
+     * @returns {Object} The response of the request as an object
      */
     async _request(url){
         return await new Promise(resolve =>{

@@ -15,7 +15,7 @@ window.onload = () =>{
     let b = new Blog('8835176754923159921', 'AIzaSyDxFD1YKLeGD5SOJR04ciEWvfrSKtTX88w');
 
     //new PostPage('7770545263904878632', b, 'parent');
-    //new PagePage('2952231245594029396', b, 'parent', 'portfolio');
+    new PagePage('2952231245594029396', b, 'parent', 'portfolio');
     
 }
 

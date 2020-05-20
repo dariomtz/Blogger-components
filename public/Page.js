@@ -35,7 +35,9 @@ class Page {
             element.remove();
         }
 
-        parent.appendChild(this.formatPage());
+        this.formatPage()
+
+        parent.appendChild(this.page);
     }
 
     /**
@@ -74,7 +76,7 @@ class Page {
 
         page.appendChild(content);
 
-        return page;
+        this.page = page;
     }
 
     /**
