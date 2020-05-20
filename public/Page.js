@@ -26,9 +26,16 @@ class Page {
 
     /**
      * Uses the data in this.info to create HTML elements and append them to the parent.
+     * Deletes everything in the parent that has the class "loading".
      */
     render(){
-        document.getElementById(this.parentId).appendChild(this.formatPage());
+        let parent = document.getElementById(this.parentId);
+
+        for (const element of parent.getElementsByClassName('loading')) {
+            element.remove();
+        }
+
+        parent.appendChild(this.formatPage());
     }
 
     /**
@@ -56,13 +63,16 @@ class Page {
             page.appendChild(date);
         }
         
-        let line = createElement('hr');
+        let line = document.createElement('hr');
         
         page.appendChild(line);
 
         this.processContent();
+        let content = document.createElement('div');
+        content.id = this.id + '-content';
+        content.innerHTML+=this.processContent;
 
-        page.innerHTML += this.processedContent;
+        page.appendChild(content);
 
         return page;
     }
@@ -73,7 +83,7 @@ class Page {
     processContent(){
         this.processContent = '';
 
-        let partsWithoutLines = this.content.split('*line*');
+        let partsWithoutLines = this.info.content.split('*line*');
                 
         for (var i = 0; i < partsWithoutLines.length -1; i++) {
             this.processContent += partsWithoutLines[i] + '<hr>'
@@ -93,6 +103,4 @@ class Page {
             this.processContent += partsWithoutDescriptionCommand[partsWithoutDescriptionCommand.length -1];
         }
     }
-
-
 }

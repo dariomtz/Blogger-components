@@ -14,23 +14,9 @@ label = portfolio
 window.onload = () =>{
     let b = new Blog('8835176754923159921', 'AIzaSyDxFD1YKLeGD5SOJR04ciEWvfrSKtTX88w');
 
+    //new PostPage('7770545263904878632', b, 'parent');
+    //new PagePage('2952231245594029396', b, 'parent', 'portfolio');
     
-
-    b.requestPost('5273036682298180657').then((r) =>{
-        post(r);
-
-        makeLine();
-
-        b.requestPage('2952231245594029396', 'portfolio').then((r)=>{
-            post(r.page);
-
-            for (const p in r.feed.items) {
-                makeLine();
-                post(r.feed.items[p]);
-            }
-            
-        })
-    })
 }
 
 function post(PostObject) {

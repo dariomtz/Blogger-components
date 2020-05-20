@@ -22,7 +22,7 @@ class Blog {
      * @returns {Object} The post resource of the blogger API with the fields title, content, and updated
      */
     async requestPost(postId){
-        return await this._request(this._url + 'posts/' + postId + '?key=' + this.key + '&fields=title,content,updated');
+        return await this._request(this._url + 'posts/' + postId + '?key=' + this.key + '&fields=title,content,updated,kind');
     }
 
     /**
@@ -35,7 +35,7 @@ class Blog {
      */
     async requestPage(pageId, label){
         let [page, feed] = await Promise.all([
-            this._request(this._url + 'pages/' + pageId + '?key=' + this.key + '&fields=title,content,updated'),
+            this._request(this._url + 'pages/' + pageId + '?key=' + this.key + '&fields=title,content,updated,kind'),
             this._request(this._url + 'posts' + '?key=' + this.key + '&label=' + label + '&fields=items(title,content,id,labels)'),
         ]);
 
