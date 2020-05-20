@@ -18,6 +18,9 @@ class PostPreview {
         this.render();
     }
 
+    /**
+     * Creates a card for each the post and appends it to the parent html
+     */
     render(){
         let card = document.createElement('div');
         card.className = 'post';
@@ -45,10 +48,6 @@ class PostPreview {
         btn.innerHTML = 'Read more >>';
 
         card.appendChild(btn);
-
-        let line = document.createElement('hr');
-
-        card.appendChild(line);
 
 		document.getElementById(this.parentId).appendChild(card);
     }

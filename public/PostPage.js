@@ -1,3 +1,6 @@
+/**
+ * Class that renders a Post
+ */
 class PostPage extends Page{
     /**
      * Creates an instance of a PostPage.
