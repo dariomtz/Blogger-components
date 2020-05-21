@@ -22,7 +22,7 @@ class PagePage extends Page{
         this.info = await this.blog.requestPage(this.id);
         let feedRequest = await this.blog.requestFeed(this.name);
 
-        this.feed = feedRequest.items;
+        this.feed = (feedRequest.items !== undefined) ? feedRequest.items : [];
         this.nextPageToken = feedRequest.nextPageToken;
     }
 
@@ -67,9 +67,9 @@ class PagePage extends Page{
 
         this.posts = [];
         
-        for (const post of this.feed) {
+        this.feed.forEach((post) =>{
             this.posts.push(new PostPreview(post, this.id + '-feed'));
-        }
+        });
 
         this.feed = [];
 
