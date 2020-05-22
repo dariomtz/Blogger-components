@@ -43,7 +43,8 @@ class PostPreview {
         card.appendChild(desc);
 
         let btn = document.createElement('a');
-
+        
+        btn.className = 'post-link';
         btn.href = './posts/' + this.id;
         btn.innerHTML = 'Read more >>';
 
