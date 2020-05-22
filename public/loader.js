@@ -86,7 +86,6 @@ class Blog {
 
 /**
  * Class that defines the behavior of a page.
- * file: Page.js
  */
 class Page {
 
@@ -133,14 +132,14 @@ class Page {
      * @returns {HTMLElement} The page as an HTML element.
      */
     formatPage(){
-        let page = document.createElement('div');
-        page.id = this.id;
+        let wrapper = document.createElement('div');
+        wrapper.id = this.id + '-wrapper';
 
         let title = document.createElement('h2');
         title.id = this.id + '-title';
         title.innerHTML = this.info.title;
 
-        page.appendChild(title);
+        wrapper.appendChild(title);
         
         if (this.info.kind === 'blogger#post'){
 
@@ -149,19 +148,24 @@ class Page {
             date.id = this.id + '-date';
             date.innerHTML = 'Updated on ' + lastUpdated.toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'});
 
-            page.appendChild(date);
+            wrapper.appendChild(date);
         }
         
         let line = document.createElement('hr');
-        
-        page.appendChild(line);
+
+        wrapper.appendChild(line);
 
         this.processContent();
         let content = document.createElement('div');
         content.id = this.id + '-content';
         content.innerHTML+=this.processContent;
 
-        page.appendChild(content);
+        wrapper.appendChild(content);
+
+        let page = document.createElement('div');
+        page.id = this.id;
+
+        page.appendChild(wrapper);
 
         this.page = page;
     }
@@ -262,7 +266,8 @@ class PostPreview {
         card.appendChild(desc);
 
         let btn = document.createElement('a');
-
+        
+        btn.className = 'post-link';
         btn.href = './posts/' + this.id;
         btn.innerHTML = 'Read more >>';
 
@@ -272,9 +277,6 @@ class PostPreview {
     }
 }
 
-/**
- * Class that renders a Page and list of posts related.
- */
 class PagePage extends Page{
     /**
      * Creates an instance of a PagePage.
@@ -343,7 +345,7 @@ class PagePage extends Page{
         this.page.appendChild(feedContainer);
 
         this.posts = [];
-
+        
         this.feed.forEach((post) =>{
             this.posts.push(new PostPreview(post, this.id + '-feed'));
         });
