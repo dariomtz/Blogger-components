@@ -137,7 +137,12 @@ class Page {
 
         let title = document.createElement('h2');
         title.id = this.id + '-title';
-        title.innerHTML = this.info.title;
+
+        if(this.info.error !== undefined){
+            title.innerHTML = '404: Not found';
+        }else{
+            title.innerHTML = this.info.title;
+        }
 
         wrapper.appendChild(title);
         
@@ -155,10 +160,15 @@ class Page {
 
         wrapper.appendChild(line);
 
-        this.processContent();
         let content = document.createElement('div');
         content.id = this.id + '-content';
-        content.innerHTML+=this.processContent;
+
+        if (this.info.error !== undefined){
+            content.innerHTML = 'Sorry! <br> We cannot find the page you are looking for. <br> Check for mistakes in the URL.'
+        }else{
+            this.processContent();
+            content.innerHTML = this.processContent;
+        }
 
         wrapper.appendChild(content);
 
@@ -374,9 +384,10 @@ class Navbar{
      * @param {Object} pages The object with the information of your pages
      */
 	constructor(parentId, pages){
+		
 		for (const key in pages) {
-			let page = pages[key];
-			if(page.title !== undefined){
+			if(key != ''){
+                let page = pages[key];
 				let p = document.createElement('li');
 				p.className = "nav-item";
 				p.id = page.label;

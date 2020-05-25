@@ -51,8 +51,14 @@ class Page {
 
         let title = document.createElement('h2');
         title.id = this.id + '-title';
-        title.innerHTML = this.info.title;
 
+        if(this.info.error !== undefined){
+            title.innerHTML = '404: Not found';
+            return;
+        }else{
+            title.innerHTML = this.info.title;
+        }
+        
         wrapper.appendChild(title);
         
         if (this.info.kind === 'blogger#post'){
@@ -69,10 +75,15 @@ class Page {
 
         wrapper.appendChild(line);
 
-        this.processContent();
         let content = document.createElement('div');
         content.id = this.id + '-content';
-        content.innerHTML+=this.processContent;
+
+        if (this.info.error !== undefined){
+            content.innerHTML = 'Sorry! <br> We cannot find the page you are looking for. <br> Check for mistakes in the URL.'
+        }else{
+            this.processContent();
+            content.innerHTML = this.processContent;
+        }
 
         wrapper.appendChild(content);
 

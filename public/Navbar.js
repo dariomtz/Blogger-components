@@ -8,9 +8,10 @@ class Navbar{
      * @param {Object} pages The object with the information of your pages
      */
 	constructor(parentId, pages){
+		
 		for (const key in pages) {
-			let page = pages[key];
-			if(page.title !== undefined){
+			if(key != ''){
+                let page = pages[key];
 				let p = document.createElement('li');
 				p.className = "nav-item";
 				p.id = page.label;
