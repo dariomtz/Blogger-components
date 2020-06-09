@@ -14,11 +14,11 @@ class Navbar{
                 let page = pages[key];
 				let p = document.createElement('li');
 				p.className = "nav-item";
-				p.id = page.label;
+				p.id = key;
 
 				let link = document.createElement('a');
 				link.className = 'nav-link';
-				link.href = '/' + page.label;
+				link.href = '/' + key;
 				link.innerHTML = page.title;
 
 				p.appendChild(link);
