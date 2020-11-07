@@ -51,8 +51,8 @@ class Blog {
      * @param {String} nextPageToken Token that was given by the previous feed requested
      * @returns {Object} The object of lists of posts that is next to the previos one.
      */
-    async requestNextFeed(nextPageToken){
-        return await this._request(this._url + 'posts' + '?key=' + this.key + '&pageToken=' + nextPageToken + '&fields=nextPageToken,items(title,content,id,labels)');
+    async requestNextFeed(label, nextPageToken){
+        return await this._request(this._url + 'posts' + '?key=' + this.key + '&labels=' + label + '&pageToken=' + nextPageToken + '&fields=nextPageToken,items(title,content,id,labels)');
     }
     
     /**
