@@ -22,7 +22,7 @@ class Blog {
      * @returns {Object} The post resource of the blogger API with the fields title, content, and updated
      */
     async requestPost(postId){
-        return await this._request(this._url + 'posts/' + postId + '?key=' + this.key + '&fields=title,content,updated,kind');
+        return await this._request(this._url + 'posts/' + postId + '?key=' + this.key + '&fields=title,content,updated,labels,kind');
     }
 
     /**
