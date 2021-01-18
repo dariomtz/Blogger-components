@@ -2,7 +2,7 @@
  
  Include in your HTML:
 ```HTML
-<script src="https://blogger-components.web.app/Blog.min.js" type="javascript"></script>
+<script src="https://blogger-components.web.app/Blog.min.js" type="text/javascript"></script>
 ```
 
 ## Usage
